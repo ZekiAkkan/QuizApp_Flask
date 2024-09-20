@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Sitesi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #333;
+            padding: 10px 20px;
+            width: 100%;
+            box-sizing: border-box;
+            position: fixed;
+            top: 0;
+            z-index: 1000;
+        }
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+        .navbar .left {
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .navbar .right {
+            display: flex;
+            align-items: center;
+        }
+        .navbar .right div {
+            margin-left: 20px;
+        }
+        .content-container {
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            width: 100%;
+            padding-top: 80px; 
+            box-sizing: border-box;
+        }
+        .content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            box-sizing: border-box;
+            margin: 20px;
+        }
+        .question {
+            margin-bottom: 20px;
+        }
+        .question h3 {
+            margin-bottom: 10px;
+        }
+        .question .options {
+            display: flex;
+            flex-direction: column;
+        }
+        .question .options label {
+            margin-bottom: 10px;
+        }
+        .classic-question {
+            margin-top: 20px;
+        }
+        .classic-question textarea {
+            width: 100%;
+            height: 100px;
+        }
+        .emoji {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer p {
+            margin: 0;
+            font-size: 14px;
+        }
+        
+        @media (max-width: 600px) {
+            .navbar .right {
+                display: flex;
+                flex-direction: column;
+            }
+            .navbar .right div {
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="navbar">
+        <div class="left">Quiz</div>
+        <div class="right">
+            <div>
+                <strong>En Yüksek Not: </strong>{{ highest_score }}
+            </div>
+            <div>
+                <a href="/">Anasayfa</a>
+                <a href="https://drive.google.com/file/d/1_sPUwLa_E0nEKt_mf9gwUr8dx4qrTWSe/view?usp=sharing">Dosya</a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="content-container">
+        <div class="content">
+            <form action="/quiz" method="post">
+                <label for="username">Adınız:</label>
+                <input type="text" id="username" name="username" required>
+                <button type="submit">Quiz'i Bitir</button>
+            
+                <div class="question">
+                    <h3><span class="emoji">🎉</span>Soru 1: Hangisi veri ön işleme adımlarından biri değildir?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q1" value="a"> Veri görselleştirme</label>
+                        <label><input type="radio" name="q1" value="b"> Normalizasyon</label>
+                        <label><input type="radio" name="q1" value="c"> One-hot encoding</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3><span class="emoji">🔧</span>Soru 2: Python'da bir fonksiyonun döndüreceği değeri tanımlamak için hangi anahtar kelime kullanılır?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q2" value="a"> return</label>
+                        <label><input type="radio" name="q2" value="b"> result</label>
+                        <label><input type="radio" name="q2" value="c"> output</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3><span class="emoji">💻</span>Soru 3: Listenin sonuna bir eleman eklemek için hangi yöntemi kullanırsınız?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q3" value="a"> my_list.add(item)</label>
+                        <label><input type="radio" name="q3" value="b"> my_list.extend(item)</label>
+                        <label><input type="radio" name="q3" value="c"> my_list.append(item)</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3><span class="emoji">📚</span>Soru 4: Bir yapay zeka modelinin eğitilmesi için kullanılan popüler bir Python kütüphanesi hangisidir?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q4" value="a"> Matplotlib</label>
+                        <label><input type="radio" name="q4" value="b"> TensorFlow</label>
+                        <label><input type="radio" name="q4" value="c"> Flask</label>
+                    </div>
+                </div>
+                <div class="question">
+                    <h3><span class="emoji">🌐</span>Soru 5: Bir sınıflandırma problemini çözmek için kullanılan başka bir popüler Python kütüphanesi hangisidir?</h3>
+                    <div class="options">
+                        <label><input type="radio" name="q5" value="a"> OpenCV</label>
+                        <label><input type="radio" name="q5" value="b"> BeautifulSoup</label>
+                        <label><input type="radio" name="q5" value="c"> Scikit-learn</label>
+                    </div>
+                </div>
+                <div class="classic-question">
+                    <h4>Klasik soruların cevapları tek sözcükten oluşmaktadır</h4>
+                    <h3><span class="emoji">📝</span>Klasik Soru 1: Python dilinde tekrarlı işlemler için kullanılan bir döngü türü hangisidir? "..." döngüsü</h3>
+                    <textarea name="classic1"></textarea>
+                </div>
+                <div class="classic-question">
+                    <h3><span class="emoji">✍️</span>Klasik Soru 2: Python Dilinde Fonksiyon Tanımı İçin Kullanılan Anahtar Kelime "..."</h3>
+                    <textarea name="classic2"></textarea>
+                </div>
+            </form>
+        </div>
+    </div>
+    <footer class="footer">
+        <p>© 2024 Quiz Sitesi | Zeki Akkan tarafından hazırlandı</p>
+    </footer>
+</body>
+</html>
